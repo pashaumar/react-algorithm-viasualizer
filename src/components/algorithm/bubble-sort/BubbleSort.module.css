@@ -1,0 +1,26 @@
+.sortContainer {
+  border: 1px solid rgba(178, 190, 195, 1);
+  padding: 8px 10px;
+}
+.sortContainer p {
+  margin: 10px 0;
+}
+.algorithmAnimate {
+  display: flex;
+  align-items: flex-end;
+  margin: 30px 0 10px 30px;
+  /* position: relative; */
+}
+.itemWrapper {
+  display: flex;
+  /* position: absolute; */
+  top: 0;
+  margin-left: 5px;
+  flex-direction: column;
+}
+.itemWrapper p {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-size: 0.8rem;
+}

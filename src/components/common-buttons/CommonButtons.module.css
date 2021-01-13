@@ -1,0 +1,33 @@
+.buttonContainer {
+  width: calc(100% - 40px);
+  margin: 20px 0;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.buttonContainer button {
+  margin-left: 15px;
+  outline: none;
+  border: 1px solid white;
+  padding: 0.5rem 0.8rem;
+  color: white;
+  background-color: rgba(56, 173, 169, 1);
+  cursor: pointer;
+}
+#rangeSlider {
+  margin-left: 15px;
+  width: 100px;
+  border-radius: 50px;
+  outline: none;
+  -webkit-appearance: none;
+  background-color: rgba(56, 173, 169, 1);
+  cursor: pointer;
+}
+#rangeSlider::-webkit-slider-thumb {
+  width: 12px;
+  -webkit-appearance: none;
+  height: 12px;
+  border-radius: 50px;
+  background: rgba(214, 48, 49, 1);
+}
