@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from "react";
 import styles from "./BubbleSort.module.css";
 import randomArray from "../../../utils/randomArray";
-import CommonButtons from "../../common-buttons/CommonButtons";
+import CommonButtons from "../../commonButtons/CommonButtons";
 import { delay } from "../../../utils/delay";
 function BubbleSort() {
   const sortingDefinition =
     "Bubble Sort: Every pair of adjacent values is compared, and then the two values swap positions if the first value is greater than the second.";
-  let [arraySize, setArraySize] = useState(10);
+  const [arraySize, setArraySize] = useState(10);
   const [array, setArray] = useState(randomArray(arraySize));
-  useEffect(() => {
-    setArray(randomArray(arraySize));
-  }, [arraySize]);
   const [comparingElementsIndex, setComparingElementsIndex] = useState({
     elementOneIndex: null,
     elementTwoIndex: null,
   });
   const [checkSortedBar, setCheckSortedBar] = useState(0);
   const [delaySpeed, setDelaySpeed] = useState(1000);
-  const sortWithDelay = async (arr, dataSet) => {
+  const [inactiveCommonButtons, setInactiveCommonButtons] = useState(false);
+  useEffect(() => {
+    setArray(randomArray(arraySize));
+    return () => setArray([]);
+  }, [arraySize]);
+  const animate = async (arr, dataSet) => {
+    setInactiveCommonButtons(true);
     for (let i = 0; i < dataSet - 1; i++) {
       for (let j = 0; j < dataSet - i - 1; j++) {
         await delay(delaySpeed);
@@ -41,14 +44,11 @@ function BubbleSort() {
     }
     setComparingElementsIndex({ elementOneIndex: null, elementTwoIndex: null });
     setCheckSortedBar(0);
+    setInactiveCommonButtons(false);
   };
   const showBarGraph = (arr) => {
     return arr.map((item, index) => (
-      <div
-        className={styles.itemWrapper}
-        key={index + 1}
-        style={{ left: `${(index + 1) * 20}px` }}
-      >
+      <div className={styles.itemWrapper} key={index + 1}>
         <div
           style={{
             backgroundColor: `${
@@ -80,13 +80,14 @@ function BubbleSort() {
       <p>{sortingDefinition}</p>
       <div className={styles.algorithmAnimate}>{showBarGraph(array)}</div>
       <CommonButtons
-        sortWithDelay={sortWithDelay}
+        animate={animate}
         randomize={randomize}
         setArraySize={setArraySize}
         array={array}
         arraySize={arraySize}
         setDelaySpeed={setDelaySpeed}
         delaySpeed={delaySpeed}
+        inactiveCommonButtons={inactiveCommonButtons}
       />
     </div>
   );
