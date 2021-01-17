@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styles from "./Main.module.css";
 import BubbleSort from "../algorithm/bubbleSort/BubbleSort";
 import SelectionSort from "../algorithm/selectionSort/SelectionSort";
+import LinearSearch from "../algorithm/linearSearch/LinearSearch";
+import BinarySearch from "../algorithm/binarySearch/BinarySearch";
 function Main() {
   const [algorithm, setAlgorithm] = useState("bubble-sort");
   const activeButtonStyle = {
@@ -25,11 +27,23 @@ function Main() {
         >
           SELECTION SORT
         </button>
-        <button>LINEAR SEARCH</button>
-        <button>BINARY SEARCH</button>
+        <button
+          style={algorithm === "linear-search" ? activeButtonStyle : {}}
+          onClick={() => setAlgorithm("linear-search")}
+        >
+          LINEAR SEARCH
+        </button>
+        <button
+          style={algorithm === "binary-search" ? activeButtonStyle : {}}
+          onClick={() => setAlgorithm("binary-search")}
+        >
+          BINARY SEARCH
+        </button>
       </div>
       {algorithm === "bubble-sort" && <BubbleSort />}
       {algorithm === "selection-sort" && <SelectionSort />}
+      {algorithm === "linear-search" && <LinearSearch algorithm={algorithm} />}
+      {algorithm === "binary-search" && <BinarySearch algorithm={algorithm} />}
     </div>
   );
 }

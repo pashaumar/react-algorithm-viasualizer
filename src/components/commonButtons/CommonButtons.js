@@ -5,6 +5,26 @@ function CommonButtons(props) {
     pointerEvents: "none",
     opacity: "0.5",
   };
+  const handleSmallDataset = () => {
+    if (
+      props.algorithm === "linear-search" ||
+      props.algorithm === "binary-search"
+    ) {
+      props.setArraySize(6);
+    } else {
+      props.setArraySize(10);
+    }
+  };
+  const handleLargeDataset = () => {
+    if (
+      props.algorithm === "linear-search" ||
+      props.algorithm === "binary-search"
+    ) {
+      props.setArraySize(8);
+    } else {
+      props.setArraySize(20);
+    }
+  };
   return (
     <div className={styles.buttonContainer}>
       <button
@@ -30,13 +50,13 @@ function CommonButtons(props) {
         style={props.inactiveCommonButtons === true ? fadeCommonButtons : {}}
       />
       <button
-        onClick={() => props.setArraySize(10)}
+        onClick={handleSmallDataset}
         style={props.inactiveCommonButtons === true ? fadeCommonButtons : {}}
       >
         SMALL DATASET
       </button>
       <button
-        onClick={() => props.setArraySize(20)}
+        onClick={handleLargeDataset}
         style={props.inactiveCommonButtons === true ? fadeCommonButtons : {}}
       >
         LARGE DATASET

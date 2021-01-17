@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import styles from "./SelectionSort.module.css";
-import randomArray from "../../../utils/randomArray";
+import { getRandomArray } from "../../../utils/randomArray";
 import CommonButtons from "../../commonButtons/CommonButtons";
 import { delay } from "../../../utils/delay";
 function SelectionSort() {
   const sortingDefinition =
     "Selection Sort: Loop through the input array linearly, selecting the first smallest element, and then swap it to the first position. Then you loop through the array again using a linear scan and get the second smallest element, swap it to the second position, and so on and so forth until your array is completely sorted.";
   let [arraySize, setArraySize] = useState(10);
-  const [array, setArray] = useState(randomArray(arraySize));
+  const [array, setArray] = useState(getRandomArray(arraySize));
   useEffect(() => {
-    setArray(randomArray(arraySize));
+    setArray(getRandomArray(arraySize));
     return () => setArray([]);
   }, [arraySize]);
   const [comparingElementsIndex, setComparingElementsIndex] = useState({
@@ -73,7 +73,7 @@ function SelectionSort() {
     ));
   };
   const randomize = () => {
-    setArray(randomArray(arraySize));
+    setArray(getRandomArray(arraySize));
     setComparingElementsIndex({ elementOneIndex: null, elementTwoIndex: null });
   };
   return (

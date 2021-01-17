@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import styles from "./BubbleSort.module.css";
-import randomArray from "../../../utils/randomArray";
+import { getRandomArray } from "../../../utils/randomArray";
 import CommonButtons from "../../commonButtons/CommonButtons";
 import { delay } from "../../../utils/delay";
 function BubbleSort() {
   const sortingDefinition =
     "Bubble Sort: Every pair of adjacent values is compared, and then the two values swap positions if the first value is greater than the second.";
   const [arraySize, setArraySize] = useState(10);
-  const [array, setArray] = useState(randomArray(arraySize));
+  const [array, setArray] = useState(getRandomArray(arraySize));
   const [comparingElementsIndex, setComparingElementsIndex] = useState({
     elementOneIndex: null,
     elementTwoIndex: null,
@@ -16,7 +16,7 @@ function BubbleSort() {
   const [delaySpeed, setDelaySpeed] = useState(1000);
   const [inactiveCommonButtons, setInactiveCommonButtons] = useState(false);
   useEffect(() => {
-    setArray(randomArray(arraySize));
+    setArray(getRandomArray(arraySize));
     return () => setArray([]);
   }, [arraySize]);
   const animate = async (arr, dataSet) => {
@@ -70,11 +70,10 @@ function BubbleSort() {
     ));
   };
   const randomize = () => {
-    setArray(randomArray(arraySize));
+    setArray(getRandomArray(arraySize));
     setComparingElementsIndex({ elementOneIndex: null, elementTwoIndex: null });
     setCheckSortedBar(0);
   };
-
   return (
     <div className={styles.sortContainer}>
       <p>{sortingDefinition}</p>

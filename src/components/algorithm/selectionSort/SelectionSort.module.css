@@ -3,13 +3,12 @@
   padding: 8px 10px;
 }
 .sortContainer p {
-  margin: 10px 0;
+  margin: 10px 35px;
 }
 .algorithmAnimate {
   display: flex;
   align-items: flex-end;
   margin: 30px 0 10px 30px;
-  /* position: relative; */
 }
 .itemWrapper {
   display: flex;
