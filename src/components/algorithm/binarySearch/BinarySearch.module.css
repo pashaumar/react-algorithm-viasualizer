@@ -52,3 +52,34 @@
 #searchInput[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
+@media screen and (max-width: 768px) {
+  .searchContainer {
+    padding: 8px 4px;
+  }
+}
+@media screen and (max-width: 425px) {
+  .searchContainer {
+    padding: 8px 0;
+  }
+  .searchContainer p {
+    margin: 10px 0;
+    padding: 0 2px;
+  }
+  .searchAnimate {
+    margin: 30px 0 10px 0;
+  }
+  .itemContainer {
+    display: flex;
+    padding: 0.5rem;
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+    border: 1px solid rgba(178, 190, 195, 1);
+    position: relative;
+    width: 25px;
+  }
+  #searchInput {
+    margin-left: 5px;
+  }
+}

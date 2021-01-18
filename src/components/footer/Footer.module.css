@@ -1,18 +1,24 @@
-.nav {
+.footer {
   display: flex;
   background-color: rgba(56, 173, 169, 1);
   width: calc(100% - 140px);
   justify-content: space-between;
   align-items: center;
   padding: 0 70px;
+  margin-top: 30px;
 }
-.nav img {
+.footer img {
   width: 70px;
 }
-.nav a {
+.footer p {
+  cursor: pointer;
   color: white;
+  text-decoration: underline;
 }
-.nav a p {
+.footer a {
+  text-decoration: none;
+}
+.footer a i {
   color: white;
   font-size: 1.5rem;
 }

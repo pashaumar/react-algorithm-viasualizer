@@ -5,6 +5,7 @@ import SelectionSort from "../algorithm/selectionSort/SelectionSort";
 import LinearSearch from "../algorithm/linearSearch/LinearSearch";
 import BinarySearch from "../algorithm/binarySearch/BinarySearch";
 import ExecutionLog from "../executionLog/ExecutionLog";
+import Footer from "../footer/Footer";
 function Main() {
   const [algorithm, setAlgorithm] = useState("bubble-sort");
   const [executionContent, setExecutionContent] = useState([]);
@@ -41,67 +42,70 @@ function Main() {
     ));
   };
   return (
-    <div className={styles.main}>
-      <h4>Select Algorithm here</h4>
-      <div className={styles.buttons}>
-        <button
-          style={algorithm === "bubble-sort" ? activeButtonStyle : {}}
-          onClick={() => setAlgorithm("bubble-sort")}
-        >
-          BUBBLE SORT
-        </button>
-        <button
-          style={algorithm === "selection-sort" ? activeButtonStyle : {}}
-          onClick={() => setAlgorithm("selection-sort")}
-        >
-          SELECTION SORT
-        </button>
-        <button
-          style={algorithm === "linear-search" ? activeButtonStyle : {}}
-          onClick={() => setAlgorithm("linear-search")}
-        >
-          LINEAR SEARCH
-        </button>
-        <button
-          style={algorithm === "binary-search" ? activeButtonStyle : {}}
-          onClick={() => setAlgorithm("binary-search")}
-        >
-          BINARY SEARCH
-        </button>
+    <>
+      <div className={styles.main}>
+        <h4>Select Algorithm here</h4>
+        <div className={styles.buttons}>
+          <button
+            style={algorithm === "bubble-sort" ? activeButtonStyle : {}}
+            onClick={() => setAlgorithm("bubble-sort")}
+          >
+            BUBBLE SORT
+          </button>
+          <button
+            style={algorithm === "selection-sort" ? activeButtonStyle : {}}
+            onClick={() => setAlgorithm("selection-sort")}
+          >
+            SELECTION SORT
+          </button>
+          <button
+            style={algorithm === "linear-search" ? activeButtonStyle : {}}
+            onClick={() => setAlgorithm("linear-search")}
+          >
+            LINEAR SEARCH
+          </button>
+          <button
+            style={algorithm === "binary-search" ? activeButtonStyle : {}}
+            onClick={() => setAlgorithm("binary-search")}
+          >
+            BINARY SEARCH
+          </button>
+        </div>
+        {algorithm === "bubble-sort" && (
+          <BubbleSort
+            algorithm={algorithm}
+            executionContent={executionContent}
+            setExecutionContent={setExecutionContent}
+          />
+        )}
+        {algorithm === "selection-sort" && (
+          <SelectionSort
+            algorithm={algorithm}
+            executionContent={executionContent}
+            setExecutionContent={setExecutionContent}
+          />
+        )}
+        {algorithm === "linear-search" && (
+          <LinearSearch
+            algorithm={algorithm}
+            executionContent={executionContent}
+            setExecutionContent={setExecutionContent}
+          />
+        )}
+        {algorithm === "binary-search" && (
+          <BinarySearch
+            algorithm={algorithm}
+            executionContent={executionContent}
+            setExecutionContent={setExecutionContent}
+          />
+        )}
+        <ExecutionLog
+          getExecutionContent={getExecutionContent}
+          setExecutionContent={setExecutionContent}
+        />
       </div>
-      {algorithm === "bubble-sort" && (
-        <BubbleSort
-          algorithm={algorithm}
-          executionContent={executionContent}
-          setExecutionContent={setExecutionContent}
-        />
-      )}
-      {algorithm === "selection-sort" && (
-        <SelectionSort
-          algorithm={algorithm}
-          executionContent={executionContent}
-          setExecutionContent={setExecutionContent}
-        />
-      )}
-      {algorithm === "linear-search" && (
-        <LinearSearch
-          algorithm={algorithm}
-          executionContent={executionContent}
-          setExecutionContent={setExecutionContent}
-        />
-      )}
-      {algorithm === "binary-search" && (
-        <BinarySearch
-          algorithm={algorithm}
-          executionContent={executionContent}
-          setExecutionContent={setExecutionContent}
-        />
-      )}
-      <ExecutionLog
-        getExecutionContent={getExecutionContent}
-        setExecutionContent={setExecutionContent}
-      />
-    </div>
+      <Footer />
+    </>
   );
 }
 

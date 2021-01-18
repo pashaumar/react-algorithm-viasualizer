@@ -62,9 +62,9 @@ function LinearSearch({ algorithm, executionContent, setExecutionContent }) {
           borderBottom: "10px solid rgba(39, 174, 96,1.0)",
         });
         setInactiveCommonButtons(false);
+        setExecutionLogMessage(`found at ${i} index`);
         await delay(delaySpeed);
         setComparingElementIndex(null);
-        setExecutionLogMessage(`found at ${i} index`);
         return;
       }
       setComparingElementIndexColor({
