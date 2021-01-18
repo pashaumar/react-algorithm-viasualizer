@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styles from "./LinearSearch.module.css";
-import { getRandomArray } from "../../../utils/randomArray";
+import { getRandomArray, getExecutionLogs } from "../../../utils/randomArray";
 import CommonButtons from "../../commonButtons/CommonButtons";
 import { delay } from "../../../utils/delay";
-function LinearSearch({ algorithm }) {
+function LinearSearch({ algorithm, executionContent, setExecutionContent }) {
   const LinearSearchDefinition =
     "Linear Search: Loop through each element of the array and return the match.";
   const [arraySize, setArraySize] = useState(6);
@@ -21,19 +21,39 @@ function LinearSearch({ algorithm }) {
   ] = useState({
     borderBottom: "10px solid rgba(238, 82, 83,1.0)",
   });
+  const [executionLogMessage, setExecutionLogMessage] = useState("");
   useEffect(() => {
     setArray(getRandomArray(arraySize));
+    if (arraySize === 6) {
+      setExecutionContent([
+        ...executionContent,
+        getExecutionLogs(algorithm, "Dataset changed to small"),
+      ]);
+    } else if (arraySize === 8) {
+      setExecutionContent([
+        ...executionContent,
+        getExecutionLogs(algorithm, "Dataset changed to large"),
+      ]);
+    }
     return () => setArray([]);
   }, [arraySize]);
+  useEffect(() => {
+    setExecutionContent([
+      ...executionContent,
+      getExecutionLogs(algorithm, executionLogMessage),
+    ]);
+  }, [executionLogMessage]);
   const animate = async (arr, dataSet) => {
     setInactiveCommonButtons(true);
     if (searchInputValue === null) {
       setInactiveCommonButtons(false);
       return;
     }
+    setExecutionLogMessage("Visualization started");
     for (let i = 0; i < dataSet; i++) {
       await delay(delaySpeed);
       setComparingElementIndex(i);
+      setExecutionLogMessage(`is ${searchInputValue} equals to ${arr[i]}?`);
       if (arr[i] === searchInputValue) {
         setComparingElementIndexColor({
           backgroundColor: "rgba(39, 174, 96,1.0)",
@@ -44,6 +64,7 @@ function LinearSearch({ algorithm }) {
         setInactiveCommonButtons(false);
         await delay(delaySpeed);
         setComparingElementIndex(null);
+        setExecutionLogMessage(`found at ${i} index`);
         return;
       }
       setComparingElementIndexColor({
@@ -54,6 +75,7 @@ function LinearSearch({ algorithm }) {
       });
     }
     await delay(delaySpeed);
+    setExecutionLogMessage("not found");
     setInactiveCommonButtons(false);
     setComparingElementIndex(null);
   };
@@ -77,6 +99,10 @@ function LinearSearch({ algorithm }) {
     ));
   };
   const randomize = () => {
+    setExecutionContent([
+      ...executionContent,
+      getExecutionLogs(algorithm, "Dataset randomized"),
+    ]);
     setArray(getRandomArray(arraySize));
   };
   return (

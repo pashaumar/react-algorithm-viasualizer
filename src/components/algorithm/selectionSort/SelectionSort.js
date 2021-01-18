@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styles from "./SelectionSort.module.css";
-import { getRandomArray } from "../../../utils/randomArray";
+import { getRandomArray, getExecutionLogs } from "../../../utils/randomArray";
 import CommonButtons from "../../commonButtons/CommonButtons";
 import { delay } from "../../../utils/delay";
-function SelectionSort() {
+function SelectionSort({ algorithm, executionContent, setExecutionContent }) {
   const sortingDefinition =
     "Selection Sort: Loop through the input array linearly, selecting the first smallest element, and then swap it to the first position. Then you loop through the array again using a linear scan and get the second smallest element, swap it to the second position, and so on and so forth until your array is completely sorted.";
   let [arraySize, setArraySize] = useState(10);
   const [array, setArray] = useState(getRandomArray(arraySize));
-  useEffect(() => {
-    setArray(getRandomArray(arraySize));
-    return () => setArray([]);
-  }, [arraySize]);
+
   const [comparingElementsIndex, setComparingElementsIndex] = useState({
     elementOneIndex: null,
     elementTwoIndex: null,
@@ -19,33 +16,67 @@ function SelectionSort() {
   const [inactiveCommonButtons, setInactiveCommonButtons] = useState(false);
   const [delaySpeed, setDelaySpeed] = useState(1000);
   const [min, setMin] = useState(null);
+  const [executionLogMessage, setExecutionLogMessage] = useState("");
+  useEffect(() => {
+    setArray(getRandomArray(arraySize));
+    if (arraySize === 10) {
+      setExecutionContent([
+        ...executionContent,
+        getExecutionLogs(algorithm, "Dataset changed to small"),
+      ]);
+    } else if (arraySize === 20) {
+      setExecutionContent([
+        ...executionContent,
+        getExecutionLogs(algorithm, "Dataset changed to large"),
+      ]);
+    }
+    return () => setArray([]);
+  }, [arraySize]);
+  useEffect(() => {
+    setExecutionContent([
+      ...executionContent,
+      getExecutionLogs(algorithm, executionLogMessage),
+    ]);
+  }, [executionLogMessage]);
+
   const animate = async (arr, dataSet) => {
+    setExecutionLogMessage("Visualization started");
     setInactiveCommonButtons(true);
     for (let i = 0; i < dataSet; i++) {
-      await delay(delaySpeed);
       let min = i;
       await delay(delaySpeed);
       setMin(min);
+      setComparingElementsIndex({
+        elementOneIndex: min,
+        elementTwoIndex: null,
+      });
+      setExecutionLogMessage(`setting min to ${arr[min]}`);
+      await delay(delaySpeed);
       for (let j = i + 1; j < dataSet; j++) {
         setComparingElementsIndex({
           elementOneIndex: min,
           elementTwoIndex: j,
         });
+        setExecutionLogMessage(`comparing ${arr[min]} and ${arr[j]}`);
         await delay(delaySpeed);
         if (arr[min] > arr[j]) {
           await delay(delaySpeed);
           min = j;
           setMin(min);
+          setExecutionLogMessage(`changing min to ${arr[min]}`);
+          await delay(delaySpeed);
         }
       }
       setComparingElementsIndex({ elementOneIndex: min, elementTwoIndex: i });
       await delay(delaySpeed);
+      setExecutionLogMessage(`swapping ${arr[i]} and ${arr[min]}`);
       [arr[min], arr[i]] = [arr[i], arr[min]];
       setArray([...arr]);
     }
     setComparingElementsIndex({ elementOneIndex: null, elementTwoIndex: null });
     setMin(null);
     setInactiveCommonButtons(false);
+    setExecutionLogMessage("sorted");
   };
   const showBarGraph = (arr) => {
     return arr.map((item, index) => (
@@ -73,6 +104,10 @@ function SelectionSort() {
     ));
   };
   const randomize = () => {
+    setExecutionContent([
+      ...executionContent,
+      getExecutionLogs(algorithm, "Dataset randomized"),
+    ]);
     setArray(getRandomArray(arraySize));
     setComparingElementsIndex({ elementOneIndex: null, elementTwoIndex: null });
   };

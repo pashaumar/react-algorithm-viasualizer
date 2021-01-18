@@ -20,3 +20,9 @@
   cursor: pointer;
   padding: 0.5rem;
 }
+.time {
+  color: rgba(207, 106, 135, 1);
+}
+.message {
+  color: rgba(56, 173, 169, 1);
+}
